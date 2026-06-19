@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { BUBBLE_NAV, COMPANY } from "@/lib/constants";
+import { BUBBLE_NAV, COMPANY, HERO_STATS } from "@/lib/constants";
 import { HERO_IMAGES, LOGO } from "@/lib/assets";
 import { SEO_COPY } from "@/lib/seo";
 
@@ -36,7 +36,9 @@ export function HeroSection() {
               alt={HERO_ALTS[i]}
               fill
               priority={i === 0}
+              loading={i === 0 ? "eager" : "lazy"}
               sizes="100vw"
+              quality={i === 0 ? 85 : 75}
               className="object-cover"
             />
           </div>
@@ -59,6 +61,18 @@ export function HeroSection() {
           <h1 className="hero-title">{COMPANY.name}</h1>
           <p className="hero-tagline">{COMPANY.tagline}</p>
           <p className="hero-seo">{SEO_COPY.hero}</p>
+        </div>
+
+        <div className="hero-stats-row glass-card">
+          {HERO_STATS.map((stat) => (
+            <div key={stat.label} className="hero-stat-item">
+              <span className="hero-stat-value">
+                {stat.value}
+                <span className="hero-stat-suffix">{stat.suffix}</span>
+              </span>
+              <span className="hero-stat-label">{stat.label}</span>
+            </div>
+          ))}
         </div>
 
         <nav className="bubble-nav" aria-label="Main navigation">

@@ -7,7 +7,6 @@ import {
   type Review,
   type ReviewSubmission,
 } from "@/lib/reviews";
-import { isSupabaseConfigured } from "@/lib/supabase";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 function StarPicker({
@@ -61,7 +60,7 @@ export function ReviewsSection() {
   const [city, setCity] = useState("");
   const [rating, setRating] = useState(5);
   const [reviewText, setReviewText] = useState("");
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -73,7 +72,9 @@ export function ReviewsSection() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setStatus("idle");
+    setStatus("submitting");
+    setMessage("");
+
     const payload: ReviewSubmission = { name, city, rating, reviewText };
     const result = await submitReview(payload);
 
@@ -84,17 +85,7 @@ export function ReviewsSection() {
     }
 
     setStatus("success");
-    setMessage(
-      result.pending
-        ? isSupabaseConfigured()
-          ? "Thank you! Your review is pending approval."
-          : "Thank you! Your review was received (demo mode — connect Supabase to save permanently)."
-        : "Thank you for your review!"
-    );
-
-    if (result.review && !isSupabaseConfigured()) {
-      setReviews((prev) => [result.review!, ...prev].slice(0, 12));
-    }
+    setMessage("Thank you! Your review is pending approval and will appear shortly.");
 
     setName("");
     setCity("");
@@ -128,6 +119,7 @@ export function ReviewsSection() {
                 onChange={(e) => setName(e.target.value)}
                 required
                 autoComplete="name"
+                placeholder="Your name"
               />
             </label>
             <label className="calc-label">
@@ -138,6 +130,7 @@ export function ReviewsSection() {
                 onChange={(e) => setCity(e.target.value)}
                 required
                 autoComplete="address-level2"
+                placeholder="Your city"
               />
             </label>
           </div>
@@ -146,7 +139,7 @@ export function ReviewsSection() {
             <StarPicker value={rating} onChange={setRating} />
           </div>
           <label className="calc-label">
-            Review
+            Your Review
             <textarea
               className="calc-input contact-textarea"
               rows={3}
@@ -154,12 +147,17 @@ export function ReviewsSection() {
               onChange={(e) => setReviewText(e.target.value)}
               required
               minLength={10}
+              placeholder="Tell us about your experience…"
             />
           </label>
-          <button type="submit" className="contact-submit">
-            Submit Review
+          <button
+            type="submit"
+            className="contact-submit"
+            disabled={status === "submitting"}
+          >
+            {status === "submitting" ? "Submitting…" : "Submit Review"}
           </button>
-          {status !== "idle" && (
+          {status !== "idle" && status !== "submitting" && (
             <p
               className={`review-form-status ${status === "error" ? "review-form-status--error" : ""}`}
               role="status"

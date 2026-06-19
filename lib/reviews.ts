@@ -1,8 +1,8 @@
-import {
-  fetchApprovedReviewsFromDb,
-  insertReviewToDb,
-  isSupabaseConfigured,
-} from "./supabase";
+/**
+ * Client-safe review helpers.
+ * - getReviews()   → GET /api/reviews (falls back to mock data)
+ * - submitReview() → POST /api/reviews (validated server-side)
+ */
 
 export type Review = {
   id: string;
@@ -20,6 +20,11 @@ export type ReviewSubmission = {
   reviewText: string;
 };
 
+export type SubmitReviewResult =
+  | { ok: true; pending: boolean; review?: Review }
+  | { ok: false; error: string };
+
+/** Displayed while Supabase is not yet connected / as fallback. */
 export const MOCK_REVIEWS: Review[] = [
   {
     id: "mock-1",
@@ -59,66 +64,40 @@ export const MOCK_REVIEWS: Review[] = [
   },
 ];
 
-/** Client-safe: returns mock data until Supabase is wired */
+/** Fetch approved reviews from the API (falls back to mock data on error). */
 export async function getReviews(): Promise<Review[]> {
-  if (isSupabaseConfigured()) {
-    try {
-      const fromDb = await fetchApprovedReviewsFromDb();
-      if (fromDb && fromDb.length > 0) return fromDb;
-    } catch {
-      // fall through to mock
-    }
+  try {
+    const res = await fetch("/api/reviews", { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    const fromApi: Review[] = json.reviews ?? [];
+    // If Supabase is live and has data, use it; else fall through to mock
+    if (fromApi.length > 0) return fromApi;
+  } catch {
+    // Network error or Supabase not configured — fall back silently
   }
   return MOCK_REVIEWS;
 }
 
-export type SubmitReviewResult =
-  | { ok: true; pending: boolean; review?: Review }
-  | { ok: false; error: string };
-
+/** Submit a new review via the secure server-side API route. */
 export async function submitReview(
   input: ReviewSubmission
 ): Promise<SubmitReviewResult> {
-  const name = input.name.trim();
-  const city = input.city.trim();
-  const reviewText = input.reviewText.trim();
+  try {
+    const res = await fetch("/api/reviews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(input),
+    });
 
-  if (name.length < 2) return { ok: false, error: "Please enter your name." };
-  if (city.length < 2) return { ok: false, error: "Please enter your city." };
-  if (input.rating < 1 || input.rating > 5) {
-    return { ok: false, error: "Please select a rating from 1 to 5." };
-  }
-  if (reviewText.length < 10) {
-    return { ok: false, error: "Review must be at least 10 characters." };
-  }
+    const json = await res.json();
 
-  if (isSupabaseConfigured()) {
-    try {
-      const inserted = await insertReviewToDb({
-        name,
-        city,
-        rating: input.rating,
-        review_text: reviewText,
-      });
-      if (inserted) {
-        return { ok: true, pending: true, review: inserted };
-      }
-    } catch {
-      return { ok: false, error: "Could not save review. Please try again later." };
+    if (!res.ok) {
+      return { ok: false, error: json.error ?? "Could not submit review." };
     }
-  }
 
-  // Mock mode: accept locally (not persisted)
-  return {
-    ok: true,
-    pending: true,
-    review: {
-      id: `local-${Date.now()}`,
-      name,
-      city,
-      rating: input.rating,
-      reviewText,
-      createdAt: new Date().toISOString(),
-    },
-  };
+    return { ok: true, pending: json.pending ?? true, review: json.review };
+  } catch {
+    return { ok: false, error: "Network error. Please try again." };
+  }
 }

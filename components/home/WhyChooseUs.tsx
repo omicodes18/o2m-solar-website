@@ -1,27 +1,30 @@
+"use client";
+
 import { WHY_CHOOSE_US } from "@/lib/constants";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export function WhyChooseUs() {
-  return (
-    <section className="py-20 bg-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Why Us"
-          title="Why Choose Us"
-          description="Engineering discipline and transparent delivery set professional EPC apart."
-        />
+  const { ref, visible } = useScrollReveal<HTMLElement>();
 
-        <div className="grid gap-8 sm:grid-cols-2">
-          {WHY_CHOOSE_US.map((item, i) => (
-            <article key={item.title} className="flex gap-5">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-solar-green/10 text-solar-green font-bold text-lg">
-                {i + 1}
-              </span>
-              <div>
-                <h3 className="text-lg font-bold text-solar-navy">{item.title}</h3>
-                <p className="mt-2 text-slate-600 leading-relaxed">{item.description}</p>
-              </div>
-            </article>
+  return (
+    <section
+      id="why-choose-us"
+      ref={ref}
+      className={`section section--why-choose-us scroll-reveal ${visible ? "scroll-reveal--visible" : ""}`}
+    >
+      <div className="section-inner">
+        <h2 className="section-title">Why Choose Us</h2>
+        <p className="section-subtitle">
+          Professional standards, quality materials, and transparent execution
+        </p>
+
+        <div className="why-choose-us-grid">
+          {WHY_CHOOSE_US.map((item, index) => (
+            <div key={item.title} className="why-card glass-card">
+              <span className="why-card-number">0{index + 1}</span>
+              <h3 className="why-card-title">{item.title}</h3>
+              <p className="why-card-desc">{item.description}</p>
+            </div>
           ))}
         </div>
       </div>

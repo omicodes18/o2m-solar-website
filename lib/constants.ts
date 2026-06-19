@@ -5,7 +5,7 @@ export const COMPANY = {
     "End-to-end solar EPC for residential, commercial, and industrial installations. Design, procurement, installation, and commissioning with professional engineering standards.",
   phone: "+91 87078 43089",
   email: "munishbharadwaj7@gmail.com",
-  whatsapp: "919876543210",
+  whatsapp: "918707843089",
   address:
     "G8, Prateek Plaza, Sector 8, Ishwar Puri, Indira Nagar, Lucknow, Uttar Pradesh 226016",
   streetAddress: "G8, Prateek Plaza, Sector 8, Ishwar Puri, Indira Nagar",
@@ -34,10 +34,10 @@ export const COMPANY = {
 
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/services", label: "Services" },
-  { href: "/projects", label: "Projects" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#unique", label: "About" },
+  { href: "/#services", label: "Services" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 import { SERVICE_IMAGES, SOLAR_FLOW_IMAGES, UNIQUE_IMAGES } from "./assets";
@@ -301,13 +301,13 @@ export const TESTIMONIALS = [
     quote:
       "Clear engineering documentation and a smooth installation timeline. Our factory roof system was commissioned on schedule.",
     author: "Operations Manager",
-    company: "Industrial Client (Placeholder)",
+    company: "Manufacturing Unit, Lucknow",
   },
   {
     quote:
       "The team explained net metering and system sizing in plain language. Professional from survey to handover.",
     author: "Homeowner",
-    company: "Residential Client (Placeholder)",
+    company: "Residential Client, Gomti Nagar",
   },
 ];
 

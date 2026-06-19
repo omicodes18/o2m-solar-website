@@ -10,13 +10,13 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-emerald-500/10 bg-background/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2 group">
-          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-solar-navy text-solar-green-light font-bold text-lg">
+          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-solar-navy-light text-solar-green-light font-bold text-lg border border-emerald-500/20">
             S
           </span>
-          <span className="font-bold text-solar-navy text-lg tracking-tight group-hover:text-solar-green transition-colors">
+          <span className="font-bold text-white text-lg tracking-tight group-hover:text-solar-green-light transition-colors">
             {COMPANY.name}
           </span>
         </Link>
@@ -26,10 +26,10 @@ export function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-solar-green ${
+                className={`text-sm font-medium transition-colors hover:text-solar-green-light ${
                   pathname === link.href
-                    ? "text-solar-green"
-                    : "text-slate-600"
+                    ? "text-solar-green-light"
+                    : "text-slate-300"
                 }`}
               >
                 {link.label}
@@ -39,7 +39,7 @@ export function Navbar() {
         </ul>
 
         <Link
-          href="/contact"
+          href="/#contact"
           className="hidden md:inline-flex items-center rounded-lg bg-solar-green px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-solar-green-dark transition-colors"
         >
           Get a Quote
@@ -47,7 +47,7 @@ export function Navbar() {
 
         <button
           type="button"
-          className="md:hidden p-2 rounded-lg text-solar-navy hover:bg-slate-100"
+          className="md:hidden p-2 rounded-lg text-slate-300 hover:bg-solar-navy-light"
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen(!open)}
@@ -63,7 +63,7 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 py-4">
+        <div className="md:hidden border-t border-emerald-500/10 bg-background/95 px-4 py-4">
           <ul className="flex flex-col gap-3">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
@@ -71,7 +71,7 @@ export function Navbar() {
                   href={link.href}
                   onClick={() => setOpen(false)}
                   className={`block py-2 text-base font-medium ${
-                    pathname === link.href ? "text-solar-green" : "text-slate-700"
+                    pathname === link.href ? "text-solar-green-light" : "text-slate-300"
                   }`}
                 >
                   {link.label}
@@ -80,7 +80,7 @@ export function Navbar() {
             ))}
             <li>
               <Link
-                href="/contact"
+                href="/#contact"
                 onClick={() => setOpen(false)}
                 className="block w-full text-center rounded-lg bg-solar-green px-5 py-3 text-white font-semibold"
               >

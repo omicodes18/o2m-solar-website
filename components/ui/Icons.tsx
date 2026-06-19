@@ -78,10 +78,10 @@ export function IconWrench({ className = "w-8 h-8" }: { className?: string }) {
   );
 }
 
-export function IconChevron({ className = "w-5 h-5", open }: { className?: string; open?: boolean }) {
+export function IconChevron({ className = "", open }: { className?: string; open?: boolean }) {
   return (
     <svg
-      className={`${className} transition-transform ${open ? "rotate-180" : ""}`}
+      className={`w-5 h-5 ${className} transition-transform ${open ? "rotate-180" : ""}`}
       viewBox="0 0 24 24"
       fill="none"
       aria-hidden

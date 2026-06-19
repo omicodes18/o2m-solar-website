@@ -18,7 +18,7 @@ export function FAQSection() {
     >
       <div className="section-inner">
         <h2 id="faq-title" className="section-title">
-          Solar FAQ — Lucknow &amp; Uttar Pradesh
+          Solar FAQ — Lucknow & Uttar Pradesh
         </h2>
         <p className="section-subtitle">
           Answers on rooftop solar, PM Surya Ghar, subsidies, and UPNEDA-approved installation
@@ -50,9 +50,11 @@ export function FAQSection() {
                   role="region"
                   aria-labelledby={buttonId}
                   className={`faq-panel ${isOpen ? "faq-panel--open" : ""}`}
-                  hidden={!isOpen}
+                  aria-hidden={!isOpen}
                 >
-                  <p>{item.answer}</p>
+                  <div className="faq-panel-inner">
+                    <p>{item.answer}</p>
+                  </div>
                 </div>
               </div>
             );
