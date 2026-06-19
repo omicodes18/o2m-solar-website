@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="45%" stop-color="#0b1f3a"/>
+      <stop offset="100%" stop-color="#061018"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="78%" cy="18%" r="35%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#f59e0b" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#16a34a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="panel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#0f2744"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <rect width="1920" height="1080" fill="url(#sunGlow)"/>
+  <circle cx="1480" cy="180" r="72" fill="#fcd34d" opacity="0.9"/>
+  <circle cx="1480" cy="180" r="100" fill="#fbbf24" opacity="0.15"/>
+  <g opacity="0.35">
+    <path d="M0 620 Q480 560 960 600 T1920 580 L1920 1080 L0 1080Z" fill="#0d2818"/>
+  </g>
+  <g fill="url(#panel)" stroke="#22c55e" stroke-width="1" stroke-opacity="0.25">
+    <rect x="120" y="520" width="200" height="120" rx="4"/>
+    <rect x="340" y="500" width="200" height="120" rx="4"/>
+    <rect x="560" y="510" width="200" height="120" rx="4"/>
+    <rect x="780" y="490" width="200" height="120" rx="4"/>
+    <rect x="1000" y="505" width="200" height="120" rx="4"/>
+    <rect x="1220" y="495" width="200" height="120" rx="4"/>
+    <rect x="1440" y="515" width="200" height="120" rx="4"/>
+    <rect x="1660" y="500" width="200" height="120" rx="4"/>
+    <line x1="220" y1="520" x2="220" y2="640" stroke="#334155" stroke-width="0.5"/>
+    <line x1="320" y1="520" x2="320" y2="640" stroke="#334155" stroke-width="0.5"/>
+  </g>
+  <g stroke="#22c55e" stroke-opacity="0.12" fill="none">
+    <path d="M0 400 Q960 320 1920 380"/>
+    <path d="M0 450 Q960 370 1920 430"/>
+  </g>
+</svg>

@@ -1,0 +1,51 @@
+Project: Professional Solar EPC company website
+
+Tech Stack:
+Next.js
+React
+Tailwind CSS
+
+DO NOT USE:
+Backend
+Database
+Authentication
+Payment system
+Customer dashboard
+Payments section
+
+Pages required:
+Home
+About
+Services
+Projects
+Contact
+
+Theme:
+Professional
+Engineering company feel
+Premium
+Green + dark blue
+Trustworthy
+
+Homepage sections:
+Navbar
+Hero
+Company Stats
+Services
+Projects Preview
+Why Choose Us
+Testimonials
+Contact CTA
+Footer
+
+Requirements:
+Responsive
+Fast
+SEO optimized later
+Use placeholders if information missing
+Do not invent fake statistics
+Use placeholder solar images for now
+
+Company details:
+
+[paste dad info + placeholders]
